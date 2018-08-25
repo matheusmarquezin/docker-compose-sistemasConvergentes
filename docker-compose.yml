@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+ mongo:
+   image: mongo
+   restart: always
+   environment:
+     MONGO_INITDB_ROOT_USERNAME: root
+     MONGO_INITDB_ROOT_PASSWORD: 32497476'Ma
+   ports:
+    - 27017:27017
+
+ client-service:
+  container_name: e-commerce-clientes
+  image: matheusmarquezin/e-commerce-clientes:v1.0
+  ports:
+    - 3005:3005
+  links: 
+    - mongo
+
+ angular-front:
+  container_name: e-commerce-angular
+  image: matheusmarquezin/e-commerce-angular:v1.0
+  ports:
+    - 3001:3001
+  links: 
+    - client-service
